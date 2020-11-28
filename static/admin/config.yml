@@ -1,0 +1,556 @@
+backend:
+  name: git-gateway
+  branch: preview
+media_folder: static/images
+public_folder: /images
+collections:
+  - name: config
+    label: Config
+    files:
+      - name: config
+        label: Config
+        file: config.toml
+        fields:
+          - widget: string
+            name: title
+            label: Title
+            required: true
+          - widget: hidden
+            name: baseURL
+            label: Base URL
+            required: false
+            hint: Hostname (and path) to the root
+          - widget: hidden
+            name: languageCode
+            label: Language Code
+            required: false
+          - widget: hidden
+            name: themesDir
+            label: Themes Directory
+            required: false
+          - widget: hidden
+            name: theme
+            label: Theme Name
+            required: false
+          - widget: object
+            name: params
+            label: Params
+            required: true
+            hint: Site parameters
+            fields:
+              - widget: string
+                name: google_analytics_id
+                label: Google Analytics ID
+                required: false
+              - widget: string
+                name: google_tag_manager_id
+                label: Google Tag Manager ID
+                required: false
+              - widget: object
+                name: homepage
+                label: Homepage
+                required: false
+                fields:
+                  - widget: boolean
+                    name: show_call_box
+                    label: Show Callbox on Homepage?
+                    required: false
+                  - widget: boolean
+                    name: hide_view_all_services
+                    label: Show View All Services button on Homepage?
+                    required: false
+              - widget: object
+                name: logo
+                label: Params Logo
+                required: false
+                fields:
+                  - widget: image
+                    name: desktop
+                    label: Logo Desktop
+                    required: true
+                    hint: the path of the desktop logo image
+                  - widget: image
+                    name: mobile
+                    label: Logo Mobile
+                    required: false
+                    hint: the path of the mobile logo image
+                  - widget: string
+                    name: alt
+                    label: Logo Alt Text
+                    required: false
+                  - widget: string
+                    name: desktop_height
+                    label: Desktop Logo height in pixels
+                    required: false
+              - widget: object
+                name: homepage_meta_tags
+                label: Homepage Metatags
+                required: false
+                fields:
+                  - widget: string
+                    name: meta_description
+                    label: meta_description
+                    required: false
+                  - widget: string
+                    name: meta_og_title
+                    label: meta_og_title
+                    required: false
+                  - widget: string
+                    name: meta_og_type
+                    label: meta_og_type
+                    required: false
+                  - widget: string
+                    name: meta_og_url
+                    label: meta_og_url
+                    required: false
+                  - widget: string
+                    name: meta_og_image
+                    label: meta_og_image
+                    required: false
+                  - widget: string
+                    name: meta_og_description
+                    label: meta_og_description
+                    required: false
+                  - widget: string
+                    name: meta_twitter_card
+                    label: meta_twitter_card
+                    required: false
+                  - widget: string
+                    name: meta_twitter_site
+                    label: meta_twitter_site
+                    required: false
+                  - widget: string
+                    name: meta_twitter_creator
+                    label: meta_twitter_creator
+                    required: false
+              - widget: object
+                name: team
+                label: Team Page Params
+                required: false
+                fields:
+                  - widget: number
+                    name: summary_large_truncate
+                    label: Length (chars) of bio text
+                    required: false
+                    valueType: int
+              - widget: object
+                name: footer
+                label: Footer
+                required: false
+                fields:
+                  - widget: string
+                    name: copyright_text
+                    label: Copyright Text
+                    required: false
+          - widget: object
+            name: menu
+            label: Menus
+            required: false
+            fields:
+              - widget: list
+                name: main
+                label: Main menu
+                required: false
+                hint: List of items for Main menu
+                fields:
+                  - widget: string
+                    name: identifier
+                    label: Identifier
+                    required: false
+                    hint: >-
+                      The identifier of a menu item could be used as a parent
+                      menu of another menu item
+                  - widget: string
+                    name: name
+                    label: Title
+                    required: true
+                    hint: The title of the menu item
+                  - widget: string
+                    name: url
+                    label: URL
+                    required: true
+                    hint: The URL the menu item links to
+                  - widget: number
+                    name: weight
+                    label: Weight
+                    required: false
+                    hint: Position for sorting
+                    valueType: int
+                  - widget: string
+                    name: parent
+                    label: Parent Menu Identifier
+                    required: false
+                    hint: >-
+                      The parent of an entry should be the identifier of another
+                      entry.
+                  - widget: hidden
+                    name: type
+                    label: Object Type
+                    required: true
+                    hint: The type of the object
+                    default: site_menu_item
+              - widget: list
+                name: footer
+                label: Footer menu
+                required: false
+                hint: List of items for Footer menu
+                fields:
+                  - widget: string
+                    name: identifier
+                    label: Identifier
+                    required: false
+                    hint: >-
+                      The identifier of a menu item could be used as a parent
+                      menu of another menu item
+                  - widget: string
+                    name: name
+                    label: Title
+                    required: true
+                    hint: The title of the menu item
+                  - widget: string
+                    name: url
+                    label: URL
+                    required: true
+                    hint: The URL the menu item links to
+                  - widget: number
+                    name: weight
+                    label: Weight
+                    required: false
+                    hint: Position for sorting
+                    valueType: int
+                  - widget: string
+                    name: parent
+                    label: Parent Menu Identifier
+                    required: false
+                    hint: >-
+                      The parent of an entry should be the identifier of another
+                      entry.
+                  - widget: hidden
+                    name: type
+                    label: Object Type
+                    required: true
+                    hint: The type of the object
+                    default: site_menu_item
+              - widget: hidden
+                name: type
+                label: Object Type
+                required: true
+                hint: The type of the object
+                default: site_menus
+  - name: home
+    label: Home
+    files:
+      - name: home
+        label: Home
+        file: content/_index.md
+        fields:
+          - widget: string
+            name: title
+            label: Title
+            required: true
+            hint: The title of the page.
+          - widget: image
+            name: intro_image
+            label: Intro Image
+            required: false
+            hint: Image displayed at in the pages intro section
+          - widget: boolean
+            name: intro_image_absolute
+            label: Overflow intro image
+            required: false
+            hint: Should the image overflow or be contained
+          - widget: boolean
+            name: intro_image_hide_on_mobile
+            label: Hide the intro image on mobile
+            required: false
+            hint: Hide the intro image on mobile screen sizes
+          - widget: hidden
+            name: model
+            label: Model
+            required: true
+            default: home
+          - widget: markdown
+            name: body
+            label: Content
+            required: false
+            hint: Page content
+  - name: pagenotfound
+    label: '404'
+    files:
+      - name: pagenotfound
+        label: '404'
+        file: content/404/_index.md
+        fields:
+          - widget: string
+            name: title
+            label: Title
+            required: false
+            hint: The title of the page.
+          - widget: hidden
+            name: model
+            label: Model
+            required: true
+            default: pagenotfound
+  - name: basicpage
+    label: Basic Pages
+    folder: content
+    create: true
+    extension: md
+    identifier_field: title
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    fields:
+      - widget: string
+        name: title
+        label: Title
+        required: false
+        hint: The title of the page.
+      - widget: date
+        name: date
+        label: Date
+        required: false
+      - widget: string
+        name: layout
+        label: layout
+        required: false
+      - widget: select
+        name: menu
+        label: Menu
+        required: false
+        options:
+          - label: Main Menu
+            value: main
+          - label: Footer Menu
+            value: footer
+      - widget: hidden
+        name: model
+        label: Model
+        required: true
+        default: basicpage
+      - widget: markdown
+        name: body
+        label: Content
+        required: false
+        hint: Page content
+    filter:
+      field: model
+      value: basicpage
+  - name: contact
+    label: Contact Page
+    files:
+      - name: contact
+        label: Contact Page
+        file: content/contact.md
+        fields:
+          - widget: string
+            name: title
+            label: Title
+            required: false
+            hint: The title of the page.
+          - widget: date
+            name: date
+            label: Date
+            required: false
+          - widget: string
+            name: layout
+            label: layout
+            required: false
+          - widget: select
+            name: menu
+            label: Menu
+            required: false
+            options:
+              - label: Main Menu
+                value: main
+              - label: Footer Menu
+                value: footer
+          - widget: hidden
+            name: model
+            label: Model
+            required: true
+            default: contact
+          - widget: markdown
+            name: body
+            label: Content
+            required: false
+            hint: Page content
+  - name: service
+    label: Services
+    folder: content/services
+    create: true
+    extension: md
+    identifier_field: title
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    fields:
+      - widget: string
+        name: title
+        label: Title
+        required: false
+      - widget: date
+        name: date
+        label: Date
+        required: false
+      - widget: boolean
+        name: draft
+        label: Draft
+        required: false
+      - widget: boolean
+        name: featured
+        label: Featured
+        required: false
+      - widget: number
+        name: weight
+        label: Weight
+        required: false
+        valueType: int
+      - widget: hidden
+        name: model
+        label: Model
+        required: true
+        default: service
+      - widget: markdown
+        name: body
+        label: Content
+        required: false
+        hint: Page content
+    filter:
+      field: model
+      value: service
+  - name: services
+    label: Services Overview
+    files:
+      - name: services
+        label: Services Overview
+        file: content/services/_index.md
+        fields:
+          - widget: string
+            name: title
+            label: Title
+            required: true
+            hint: The title of the page.
+          - widget: image
+            name: intro_image
+            label: Intro Image
+            required: false
+            hint: Image displayed at in the pages intro section
+          - widget: boolean
+            name: intro_image_absolute
+            label: Intro Image Position
+            required: false
+            hint: Should the image overflow or be contained
+          - widget: boolean
+            name: intro_image_hide_on_mobile
+            label: Intro Image Hide On Mobile
+            required: false
+            hint: Hide the intro image on mobile screen sizes
+          - widget: hidden
+            name: model
+            label: Model
+            required: true
+            default: services
+          - widget: markdown
+            name: body
+            label: Content
+            required: false
+            hint: Page content
+  - name: team
+    label: Teams
+    folder: content/team
+    create: true
+    extension: md
+    identifier_field: title
+    slug: '{{slug}}'
+    summary: '{{title}}'
+    fields:
+      - widget: string
+        name: title
+        label: Title
+        required: false
+      - widget: date
+        name: date
+        label: Date
+        required: false
+      - widget: image
+        name: image
+        label: Image
+        required: false
+      - widget: string
+        name: jobtitle
+        label: Job Title
+        required: false
+      - widget: string
+        name: linkedinurl
+        label: Linkedin URL
+        required: false
+      - widget: string
+        name: Twitterhandle
+        label: Twitter handle
+        required: false
+      - widget: boolean
+        name: draft
+        label: Draft
+        required: false
+      - widget: boolean
+        name: featured
+        label: Featured
+        required: false
+      - widget: number
+        name: weight
+        label: Weight
+        required: false
+        valueType: int
+      - widget: boolean
+        name: promoted
+        label: Promoted
+        required: false
+      - widget: hidden
+        name: model
+        label: Model
+        required: true
+        default: team
+      - widget: markdown
+        name: body
+        label: Content
+        required: false
+        hint: Page content
+    filter:
+      field: model
+      value: team
+  - name: teams
+    label: Team Overview
+    files:
+      - name: teams
+        label: Team Overview
+        file: content/team/_index.md
+        fields:
+          - widget: string
+            name: title
+            label: Title
+            required: true
+            hint: The title of the page.
+          - widget: image
+            name: intro_image
+            label: Intro Image
+            required: false
+            hint: Image displayed at in the pages intro section
+          - widget: boolean
+            name: intro_image_absolute
+            label: Intro Image Position
+            required: false
+            hint: Should the image overflow or be contained
+          - widget: boolean
+            name: intro_image_hide_on_mobile
+            label: Intro Image Hide On Mobile
+            required: false
+            hint: Hide the intro image on mobile screen sizes
+          - widget: hidden
+            name: model
+            label: Model
+            required: true
+            default: teams
+          - widget: markdown
+            name: body
+            label: Content
+            required: false
+            hint: Page content
